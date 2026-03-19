@@ -1,0 +1,275 @@
+/* --- Variáveis e Reset --- */
+:root {
+    --primary-glow: #00f2ff;
+    --secondary-glow: #7000ff;
+    --bg-dark: #020617;
+    --card-bg: rgba(30, 41, 59, 0.4);
+    --input-bg: rgba(15, 23, 42, 0.6);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    color: var(--text-main);
+    background: radial-gradient(circle at top right, #0f172a, #020617);
+    background-attachment: fixed;
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+    margin-top: 0;
+    background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* --- Layout Principal --- */
+.header {
+    padding: 1.5rem 2rem;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.2rem;
+    color: var(--primary-glow);
+}
+
+.header-nav {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    color: var(--primary-glow);
+}
+
+.nav-link.ativo {
+    color: var(--text-main);
+    text-shadow: 0 0 10px var(--primary-glow);
+}
+
+main {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+/* --- Páginas Específicas --- */
+.pagina-inicio {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+}
+
+.resumo-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.resumo-card strong {
+    display: block;
+    font-size: 2.5rem;
+    color: var(--primary-glow);
+}
+
+/* --- Componentes de Hábito --- */
+.habit-form {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 3rem;
+    display: grid;
+    gap: 1rem;
+}
+
+.habit-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.habit-form input {
+    background: var(--input-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    color: white;
+    outline: none;
+}
+
+.habit-form input:focus {
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 10px rgba(0, 242, 255, 0.2);
+}
+
+.habit-card {
+    position: relative;
+    /* CRUCIAL: para o ::before se orientar por este card */
+    text-align: left;
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 24px;
+    overflow: hidden;
+    /* Garante que o ::before não escape das bordas arredondadas */
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.habit-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    /* Garante que preencha toda a altura */
+    width: 5px;
+    /* Aumentei 1px para dar mais presença ao brilho */
+    background: linear-gradient(to bottom, var(--primary-glow), var(--secondary-glow));
+
+    /* Adiciona um leve brilho interno (glow) para não parecer apenas uma linha sólida */
+    box-shadow: 2px 0 10px rgba(0, 242, 255, 0.3);
+    z-index: 1;
+}
+
+.habit-card:hover {
+    transform: scale(1.02);
+    border-color: rgba(0, 242, 255, 0.5);
+    box-shadow: 0 0 30px rgba(0, 242, 255, 0.15);
+}
+
+.habit-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.habit-card-acoes {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+/* --- Botões --- */
+button,
+.btn-primario,
+.btn-detalhes {
+    cursor: pointer;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: var(--transition);
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button[type="submit"],
+.btn-primario {
+    background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow));
+    color: #000;
+}
+
+button[type="submit"]:hover,
+.btn-primario:hover {
+    filter: brightness(1.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 242, 255, 0.4);
+}
+
+.btn-detalhes {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btn-detalhes:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-remover-card,
+.btn-remover {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.btn-remover:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* --- Detalhes --- */
+.detalhe-card {
+    background: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.detalhe-info li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* --- Utilitários --- */
+.pagina-404 {
+    text-align: center;
+    padding: 5rem 1rem;
+}
+
+.pagina-404 h1 {
+    font-size: 6rem;
+}
+
+footer {
+    text-align: center;
+    padding: 3rem 1rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
